@@ -61,6 +61,7 @@ export default function Home() {
             <a href="#features" className="text-gray-600 hover:text-teal-600 transition-colors">Features</a>
             <a href="#problem" className="text-gray-600 hover:text-teal-600 transition-colors">Problem</a>
             <a href="#solution" className="text-gray-600 hover:text-teal-600 transition-colors">Solution</a>
+            <a href="/survey" className="text-gray-600 hover:text-teal-600 transition-colors font-medium">Survey</a>
             <a href="#contact" className="text-gray-600 hover:text-teal-600 transition-colors">Contact</a>
           </nav>
           <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors">
@@ -116,6 +117,21 @@ export default function Home() {
                 {message}
               </div>
             )}
+          </div>
+          
+          {/* Survey CTA */}
+          <div className="mt-8 mb-12 p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-teal-100 max-w-2xl mx-auto">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Help Shape WellWise</h3>
+            <p className="text-gray-600 mb-4">
+              Take our 5-minute market research survey and help us build the perfect solution for your needs.
+            </p>
+            <a 
+              href="/survey"
+              className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+            >
+              Take Survey
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
           </div>
 
           {/* Stats */}

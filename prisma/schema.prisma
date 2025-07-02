@@ -31,3 +31,40 @@ model ContactForm {
   @@map("contact_forms")
 }
 
+model SurveyResponse {
+  id                    String   @id @default(cuid())
+  email                 String
+  name                  String?
+  company               String?
+  role                  String?
+  companySize           String?
+  industry              String?
+  
+  // Problem validation
+  burnoutExperience     String?
+  stressLevel           Int?
+  financialStress       String?
+  sustainabilityConcern String?
+  currentSolutions      String[]
+  
+  // Solution validation
+  integratedSolution    String?
+  mostValuableFeature   String?
+  paymentWillingness    String?
+  priceRange            String?
+  
+  // Implementation
+  implementationTime    String?
+  decisionMakers        String[]
+  evaluationCriteria    String[]
+  
+  // Additional feedback
+  additionalFeatures    String?
+  concerns              String?
+  feedback              String?
+  
+  createdAt             DateTime @default(now())
+  
+  @@map("survey_responses")
+}
+
