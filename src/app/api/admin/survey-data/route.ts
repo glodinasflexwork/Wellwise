@@ -43,13 +43,13 @@ export async function GET(request: NextRequest) {
     const analytics = {
       totalSurveyResponses: surveyResponses.length,
       totalEmailSignups: emailSignups.length,
-      responsesByDay: {},
-      signupsByDay: {},
-      industryBreakdown: {},
-      companySizeBreakdown: {},
+      responsesByDay: {} as Record<string, number>,
+      signupsByDay: {} as Record<string, number>,
+      industryBreakdown: {} as Record<string, number>,
+      companySizeBreakdown: {} as Record<string, number>,
       stressLevelAverage: 0,
-      paymentWillingnessBreakdown: {},
-      mostRequestedFeatures: {}
+      paymentWillingnessBreakdown: {} as Record<string, number>,
+      mostRequestedFeatures: {} as Record<string, number>
     };
 
     // Process survey data for analytics
