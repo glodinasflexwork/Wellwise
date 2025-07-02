@@ -64,7 +64,13 @@ export default function Home() {
             <a href="/survey" className="text-gray-600 hover:text-teal-600 transition-colors font-medium">Survey</a>
             <a href="#contact" className="text-gray-600 hover:text-teal-600 transition-colors">Contact</a>
           </nav>
-          <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors">
+          <button 
+            onClick={() => {
+              const emailSection = document.querySelector('form');
+              emailSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors"
+          >
             Get Early Access
           </button>
         </div>

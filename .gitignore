@@ -41,3 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+/home/ubuntu/admin_credentials.md
+/home/ubuntu/create_admin_user.js
