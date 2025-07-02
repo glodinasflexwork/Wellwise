@@ -81,7 +81,7 @@ export default function AdminLogin() {
                   value={formData.username}
                   onChange={handleChange}
                   required
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border-2 border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-600 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors shadow-sm"
                   placeholder="Enter your username"
                 />
               </div>
@@ -103,7 +103,7 @@ export default function AdminLogin() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"
+                  className="block w-full pl-10 pr-12 py-3 border-2 border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-600 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors shadow-sm"
                   placeholder="Enter your password"
                 />
                 <button
