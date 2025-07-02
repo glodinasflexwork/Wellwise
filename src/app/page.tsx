@@ -7,13 +7,44 @@ import { Heart, DollarSign, Leaf, Brain, Users, TrendingUp, Shield, Zap, CheckCi
 export default function Home() {
   const [email, setEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState('')
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) {
-      setIsSubmitted(true)
-      // Here you would typically send the email to your backend
-      console.log('Email submitted:', email)
+    if (!email) return
+
+    setIsLoading(true)
+    setMessage('')
+
+    try {
+      const response = await fetch('/api/email-signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email, 
+          source: 'hero' 
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        setMessage(data.alreadyExists ? 
+          'You&apos;re already on our list!' : 
+          'Thank you! Check your email for confirmation.'
+        )
+      } else {
+        setMessage(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      console.error('Email signup error:', error)
+      setMessage('Network error. Please try again.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -64,18 +95,25 @@ export default function Home() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                   required
+                  disabled={isLoading}
                 />
                 <button 
                   type="submit" 
-                  className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-lg transition-colors"
+                  disabled={isLoading}
+                  className="bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white px-8 py-3 rounded-lg transition-colors"
                 >
-                  Join Waitlist
+                  {isLoading ? 'Joining...' : 'Join Waitlist'}
                 </button>
               </form>
             ) : (
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-green-700">
                 <CheckCircle className="inline-block w-5 h-5 mr-2" />
-                Thank you! We&apos;ll notify you when WellWise launches.
+                {message || 'Thank you! We&apos;ll notify you when WellWise launches.'}
+              </div>
+            )}
+            {!isSubmitted && message && (
+              <div className="mt-3 text-red-600 text-sm text-center">
+                {message}
               </div>
             )}
           </div>
@@ -301,19 +339,26 @@ export default function Home() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
                   required
+                  disabled={isLoading}
                 />
                 <button 
                   type="submit" 
-                  className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 rounded-lg transition-colors flex items-center"
+                  disabled={isLoading}
+                  className="bg-white text-teal-600 hover:bg-gray-100 disabled:bg-gray-200 px-8 py-3 rounded-lg transition-colors flex items-center"
                 >
-                  Get Early Access
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  {isLoading ? 'Joining...' : 'Get Early Access'}
+                  {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
                 </button>
               </form>
             ) : (
               <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-white">
                 <CheckCircle className="inline-block w-5 h-5 mr-2" />
-                You&apos;re on the list! We&apos;ll be in touch soon.
+                {message || 'You&apos;re on the list! We&apos;ll be in touch soon.'}
+              </div>
+            )}
+            {!isSubmitted && message && (
+              <div className="mt-3 text-red-200 text-sm text-center">
+                {message}
               </div>
             )}
           </div>
