@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Lock, User, Eye, EyeOff } from 'lucide-react';
 
 export default function AdminLogin() {
@@ -54,17 +55,17 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-600 rounded-full mb-4">
-            <Lock className="w-8 h-8 text-white" />
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-teal-600 rounded-full mb-3 sm:mb-4">
+            <Lock className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">WellWise Admin</h1>
-          <p className="text-gray-600">Sign in to access the admin dashboard</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">WellWise Admin</h1>
+          <p className="text-sm sm:text-base text-gray-600">Sign in to access the admin dashboard</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Username Field */}
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
@@ -131,12 +132,12 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-teal-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-teal-600 text-white py-3 sm:py-4 px-4 rounded-lg font-medium hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Signing in...
+                  <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white mr-2"></div>
+                  <span className="text-sm sm:text-base">Signing in...</span>
                 </div>
               ) : (
                 'Sign In'
@@ -145,21 +146,21 @@ export default function AdminLogin() {
           </form>
 
           {/* Footer */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-500">
+          <div className="mt-4 sm:mt-6 text-center">
+            <p className="text-xs sm:text-sm text-gray-500">
               Secure access to WellWise analytics and data
             </p>
           </div>
         </div>
 
         {/* Back to Website */}
-        <div className="text-center mt-6">
-          <a
+        <div className="text-center mt-4 sm:mt-6">
+          <Link
             href="/"
-            className="text-teal-600 hover:text-teal-700 text-sm font-medium transition-colors"
+            className="text-teal-600 hover:text-teal-700 text-sm font-medium transition-colors inline-flex items-center"
           >
             ← Back to WellWise
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -2,13 +2,26 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { Heart, DollarSign, Leaf, Brain, Users, TrendingUp, Shield, Zap, CheckCircle, ArrowRight, Mail, Phone, Globe } from 'lucide-react'
+import { Heart, DollarSign, Leaf, Brain, Users, TrendingUp, Shield, Zap, CheckCircle, ArrowRight, Mail, Phone, Globe, Menu, X } from 'lucide-react'
 
 export default function Home() {
   const [email, setEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  // Contact form state
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    company: '',
+    subject: '',
+    message: ''
+  })
+  const [contactSubmitted, setContactSubmitted] = useState(false)
+  const [contactLoading, setContactLoading] = useState(false)
+  const [contactMessage, setContactMessage] = useState('')
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,31 +61,144 @@ export default function Home() {
     }
   }
 
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!contactForm.name || !contactForm.email || !contactForm.message) return
+
+    setContactLoading(true)
+    setContactMessage('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactForm),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setContactSubmitted(true)
+        setContactMessage('Thank you! Your message has been sent successfully.')
+        setContactForm({
+          name: '',
+          email: '',
+          company: '',
+          subject: '',
+          message: ''
+        })
+      } else {
+        setContactMessage(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      console.error('Contact form error:', error)
+      setContactMessage('Network error. Please try again or email us directly.')
+    } finally {
+      setContactLoading(false)
+    }
+  }
+
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setContactForm({
+      ...contactForm,
+      [e.target.name]: e.target.value
+    })
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-teal-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Image src="/images/wellwise_logo.png" alt="WellWise Logo" width={40} height={40} />
-            <span className="text-2xl font-bold text-teal-700">WellWise</span>
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Image src="/images/wellwise_logo.png" alt="WellWise Logo" width={40} height={40} />
+              <span className="text-2xl font-bold text-teal-700">WellWise</span>
+            </div>
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-8">
+              <a href="#features" className="text-gray-600 hover:text-teal-600 transition-colors">Features</a>
+              <a href="#problem" className="text-gray-600 hover:text-teal-600 transition-colors">Problem</a>
+              <a href="#solution" className="text-gray-600 hover:text-teal-600 transition-colors">Solution</a>
+              <a href="/survey" className="text-gray-600 hover:text-teal-600 transition-colors font-medium">Survey</a>
+              <a href="#contact" className="text-gray-600 hover:text-teal-600 transition-colors">Contact</a>
+            </nav>
+            
+            {/* Desktop CTA Button */}
+            <button 
+              onClick={() => {
+                const emailSection = document.querySelector('form');
+                emailSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="hidden md:block bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors"
+            >
+              Get Early Access
+            </button>
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 text-gray-600 hover:text-teal-600 transition-colors"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-          <nav className="hidden md:flex space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-teal-600 transition-colors">Features</a>
-            <a href="#problem" className="text-gray-600 hover:text-teal-600 transition-colors">Problem</a>
-            <a href="#solution" className="text-gray-600 hover:text-teal-600 transition-colors">Solution</a>
-            <a href="/survey" className="text-gray-600 hover:text-teal-600 transition-colors font-medium">Survey</a>
-            <a href="#contact" className="text-gray-600 hover:text-teal-600 transition-colors">Contact</a>
-          </nav>
-          <button 
-            onClick={() => {
-              const emailSection = document.querySelector('form');
-              emailSection?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors"
-          >
-            Get Early Access
-          </button>
+          
+          {/* Mobile Navigation Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-teal-100">
+              <nav className="flex flex-col space-y-4 pt-4">
+                <a 
+                  href="#features" 
+                  className="text-gray-600 hover:text-teal-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Features
+                </a>
+                <a 
+                  href="#problem" 
+                  className="text-gray-600 hover:text-teal-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Problem
+                </a>
+                <a 
+                  href="#solution" 
+                  className="text-gray-600 hover:text-teal-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Solution
+                </a>
+                <a 
+                  href="/survey" 
+                  className="text-gray-600 hover:text-teal-600 transition-colors font-medium py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Survey
+                </a>
+                <a 
+                  href="#contact" 
+                  className="text-gray-600 hover:text-teal-600 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </a>
+                <button 
+                  onClick={() => {
+                    const emailSection = document.querySelector('form');
+                    emailSection?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg transition-colors text-left"
+                >
+                  Get Early Access
+                </button>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
@@ -391,36 +517,190 @@ export default function Home() {
       <section id="contact" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Interested in partnerships, investment opportunities, or early access? 
               We&apos;d love to hear from you.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-6 h-6 text-teal-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600">cihat@wellwise.ai</p>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Contact Information */}
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-6">Let&apos;s Connect</h3>
+                  <p className="text-gray-600 mb-8">
+                    Whether you&apos;re an investor, potential partner, or interested in early access, 
+                    we&apos;re excited to discuss how WellWise can create value for you and your organization.
+                  </p>
+                </div>
 
-            <div className="text-center">
-              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Phone className="w-6 h-6 text-teal-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Phone</h3>
-              <p className="text-gray-600">+31 6 1234 5678</p>
-            </div>
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                      <Mail className="w-6 h-6 text-teal-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Email</h4>
+                      <p className="text-gray-600">cihat@wellwise.ai</p>
+                    </div>
+                  </div>
 
-            <div className="text-center">
-              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Globe className="w-6 h-6 text-teal-600" />
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-teal-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Phone</h4>
+                      <p className="text-gray-600">+31 6 1234 5678</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                      <Globe className="w-6 h-6 text-teal-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Website</h4>
+                      <p className="text-gray-600">www.cihatkaya.nl</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Website</h3>
-              <p className="text-gray-600">www.cihatkaya.nl</p>
+
+              {/* Contact Form */}
+              <div className="bg-white rounded-2xl shadow-xl p-8">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-6">Send us a Message</h3>
+                
+                {!contactSubmitted ? (
+                  <form onSubmit={handleContactSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={contactForm.name}
+                          onChange={handleContactChange}
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                          placeholder="Your full name"
+                          required
+                          disabled={contactLoading}
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={contactForm.email}
+                          onChange={handleContactChange}
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                          placeholder="your@email.com"
+                          required
+                          disabled={contactLoading}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                          Company/Organization
+                        </label>
+                        <input
+                          type="text"
+                          id="company"
+                          name="company"
+                          value={contactForm.company}
+                          onChange={handleContactChange}
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                          placeholder="Your company"
+                          disabled={contactLoading}
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                          Subject
+                        </label>
+                        <select
+                          id="subject"
+                          name="subject"
+                          value={contactForm.subject}
+                          onChange={handleContactChange}
+                          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                          disabled={contactLoading}
+                        >
+                          <option value="">Select a topic</option>
+                          <option value="investment">Investment Opportunity</option>
+                          <option value="partnership">Partnership</option>
+                          <option value="early-access">Early Access</option>
+                          <option value="media">Media Inquiry</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                        Message *
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={contactForm.message}
+                        onChange={handleContactChange}
+                        rows={5}
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors resize-vertical"
+                        placeholder="Tell us about your interest in WellWise..."
+                        required
+                        disabled={contactLoading}
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={contactLoading}
+                      className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white px-8 py-4 rounded-lg transition-colors font-semibold flex items-center justify-center"
+                    >
+                      {contactLoading ? 'Sending...' : 'Send Message'}
+                      {!contactLoading && <ArrowRight className="w-5 h-5 ml-2" />}
+                    </button>
+                  </form>
+                ) : (
+                  <div className="text-center py-8">
+                    <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">Message Sent!</h4>
+                    <p className="text-gray-600 mb-6">
+                      {contactMessage || 'Thank you for reaching out. We&apos;ll get back to you within 24 hours.'}
+                    </p>
+                    <button
+                      onClick={() => {
+                        setContactSubmitted(false)
+                        setContactMessage('')
+                      }}
+                      className="text-teal-600 hover:text-teal-700 font-medium"
+                    >
+                      Send Another Message
+                    </button>
+                  </div>
+                )}
+
+                {!contactSubmitted && contactMessage && (
+                  <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-red-600 text-sm">{contactMessage}</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

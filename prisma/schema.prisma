@@ -31,6 +31,18 @@ model ContactForm {
   @@map("contact_forms")
 }
 
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+  
+  @@map("contact_submissions")
+}
+
 model SurveyResponse {
   id                    String   @id @default(cuid())
   email                 String
