@@ -156,8 +156,16 @@ export default function SurveyPage() {
             <Image src="/images/wellwise_logo.png" alt="WellWise Logo" width={40} height={40} />
             <span className="text-2xl font-bold text-teal-700">WellWise</span>
           </div>
-          <div className="text-sm text-gray-600">
-            Market Research Survey
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:block text-sm text-gray-600">
+              Market Research Survey
+            </div>
+            <Link 
+              href="/"
+              className="flex items-center bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+            >
+              ← Back to Site
+            </Link>
           </div>
         </div>
       </header>

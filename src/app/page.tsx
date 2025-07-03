@@ -524,54 +524,10 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-6">Let&apos;s Connect</h3>
-                  <p className="text-gray-600 mb-8">
-                    Whether you&apos;re an investor, potential partner, or interested in early access, 
-                    we&apos;re excited to discuss how WellWise can create value for you and your organization.
-                  </p>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-teal-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Email</h4>
-                      <p className="text-gray-600">cihat@wellwise.ai</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-teal-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Phone</h4>
-                      <p className="text-gray-600">+31 6 1234 5678</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                      <Globe className="w-6 h-6 text-teal-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Website</h4>
-                      <p className="text-gray-600">www.cihatkaya.nl</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Contact Form */}
-              <div className="bg-white rounded-2xl shadow-xl p-8">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-6">Send us a Message</h3>
+          <div className="max-w-2xl mx-auto">
+            {/* Contact Form */}
+            <div className="bg-white rounded-2xl shadow-xl p-8">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6 text-center">Send us a Message</h3>
                 
                 {!contactSubmitted ? (
                   <form onSubmit={handleContactSubmit} className="space-y-6">
