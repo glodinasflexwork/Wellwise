@@ -13,7 +13,7 @@ function verifyAdminToken(request: NextRequest) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -109,8 +109,8 @@ export async function GET(request: NextRequest) {
       analytics
     });
 
-  } catch (error) {
-    console.error('Error fetching survey data:', error);
+  } catch (err) {
+    console.error('Error fetching survey data:', err);
     return NextResponse.json(
       { error: 'Failed to fetch survey data' },
       { status: 500 }

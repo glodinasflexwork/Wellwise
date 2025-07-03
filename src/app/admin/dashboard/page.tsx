@@ -72,10 +72,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const router = useRouter();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     try {
       const response = await fetch('/api/admin/survey-data');
@@ -91,18 +87,22 @@ export default function AdminDashboard() {
 
       const result = await response.json();
       setData(result);
-    } catch (error) {
+    } catch {
       setError('Failed to load dashboard data');
     } finally {
       setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchData()
+  }, []);
+
   const handleLogout = async () => {
     try {
       await fetch('/api/admin/logout', { method: 'POST' });
       router.push('/admin/login');
-    } catch (error) {
+    } catch {
       console.error('Logout error:', error);
     }
   };
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    } catch (error) {
+    } catch {
       alert('Export failed. Please try again.');
     }
   };

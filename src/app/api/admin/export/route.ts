@@ -13,7 +13,7 @@ function verifyAdminToken(request: NextRequest) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -23,7 +23,7 @@ function arrayToString(arr: string[] | null): string {
   return arr.join('; ');
 }
 
-function escapeCSV(value: any): string {
+function escapeCSV(value: unknown): string {
   if (value === null || value === undefined) return '';
   const str = String(value);
   if (str.includes(',') || str.includes('"') || str.includes('\n')) {
@@ -149,8 +149,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-  } catch (error) {
-    console.error('Error exporting data:', error);
+  } catch (err) {
+    console.error('Error exporting data:', err);
     return NextResponse.json(
       { error: 'Failed to export data' },
       { status: 500 }
