@@ -450,11 +450,7 @@ export default function DocumentPage() {
           <h2>The Problem & Market Opportunity</h2>
           
           <div className="infographic">
-            <div style={{width: '100%', height: '400px', background: 'linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.2rem', fontWeight: '600'}}>
-              Market Opportunity Infographic: €162B Total Addressable Market
-              <br/>
-              <span style={{fontSize: '0.9rem', opacity: 0.8}}>Corporate Wellbeing €87B | Personal Finance Tech €45B | Sustainability Tracking €30B</span>
-            </div>
+            <img src="/infographics/WellWise-Market-Opportunity-Infographic.png" alt="Market Opportunity Breakdown" style={{maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)'}} />
             <div className="infographic-caption">Market Opportunity Breakdown: €162B Total Addressable Market</div>
           </div>
 
@@ -470,13 +466,7 @@ export default function DocumentPage() {
           </div>
 
           <div className="infographic">
-            <div style={{width: '100%', height: '350px', background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.1rem', fontWeight: '600', textAlign: 'center', padding: '20px'}}>
-              The Fragmentation Crisis: €617B Annual Cost
-              <br/>
-              <span style={{fontSize: '0.9rem', opacity: 0.9, marginTop: '10px', display: 'block'}}>
-                76% Burnout Rate | 84% Job Consideration | 67% Use &lt;2 Tools | 40% HR Time on Vendors
-              </span>
-            </div>
+            <img src="/infographics/WellWise-Problem-Fragmentation-Infographic.png" alt="The Fragmentation Crisis" style={{maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)'}} />
             <div className="infographic-caption">Problem Visualization: The Cost of Fragmented Wellbeing Solutions</div>
           </div>
 
@@ -498,15 +488,7 @@ export default function DocumentPage() {
           <h2>Solution & Competitive Advantage</h2>
 
           <div className="infographic">
-            <div style={{width: '100%', height: '400px', background: 'linear-gradient(135deg, #065f46 0%, #047857 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.1rem', fontWeight: '600', textAlign: 'center', padding: '20px'}}>
-              WellWise: AI-Powered Integration Solution
-              <br/>
-              <span style={{fontSize: '0.9rem', opacity: 0.9, marginTop: '15px', display: 'block'}}>
-                Mental Health + Financial Wellness + Sustainability
-                <br/>
-                Connected by Intelligent AI Analytics
-              </span>
-            </div>
+            <img src="/infographics/WellWise-Solution-Architecture-Infographic.png" alt="WellWise Solution Architecture" style={{maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)'}} />
             <div className="infographic-caption">Solution Architecture: Three-Pillar Integration with AI Intelligence</div>
           </div>
 
@@ -546,13 +528,7 @@ export default function DocumentPage() {
           <h3>Competitive Advantages</h3>
 
           <div className="infographic">
-            <div style={{width: '100%', height: '350px', background: 'linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.1rem', fontWeight: '600', textAlign: 'center', padding: '20px'}}>
-              Competitive Landscape: WellWise Unique Integration
-              <br/>
-              <span style={{fontSize: '0.9rem', opacity: 0.9, marginTop: '15px', display: 'block'}}>
-                Only Integrated Solution | AI-Powered Insights | Cross-Pillar Analytics
-              </span>
-            </div>
+            <img src="/infographics/WellWise-Competitive-Landscape-Infographic.png" alt="Competitive Landscape Analysis" style={{maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)'}} />
             <div className="infographic-caption">Market Positioning: First and Only Integrated Wellbeing Platform</div>
           </div>
 
@@ -618,16 +594,8 @@ export default function DocumentPage() {
           <h2>Business Model & Revenue Streams</h2>
 
           <div className="infographic">
-            <div style={{width: '100%', height: '350px', background: 'linear-gradient(135deg, #2c5aa0 0%, #1e3a8a 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.1rem', fontWeight: '600', textAlign: 'center', padding: '20px'}}>
-              Business Model: Multiple Revenue Streams
-              <br/>
-              <span style={{fontSize: '0.9rem', opacity: 0.9, marginTop: '15px', display: 'block'}}>
-                B2B SaaS 70% | Implementation 20% | Analytics Services 10%
-                <br/>
-                LTV/CAC 30:1 | 85% Gross Margin | 3% Churn Rate
-              </span>
-            </div>
-            <div className="infographic-caption">Revenue Model: Diversified Streams with Strong Unit Economics</div>
+            <img src="/infographics/WellWise-Business-Model-Infographic.png" alt="Business Model and Revenue Streams" style={{maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)'}} />
+            <div className="infographic-caption">Revenue Model: Multiple Streams with Strong Unit Economics</div>
           </div>
 
           <h3>Revenue Streams</h3>
